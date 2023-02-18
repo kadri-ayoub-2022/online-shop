@@ -1,0 +1,36 @@
+<%-  include('parts/header.ejs') %>
+
+<%- include('parts/navbar.ejs') %>
+
+<div class="container">
+    <% if (!products) { %>
+        <div class="alert alert-danger">
+            there is no product matches this id
+        </div>
+    <% } else { %>
+        <div class="row">
+            <div class="col col-12 col-md-6"> 
+                <img src="/<%= products.image %>">
+                <form  method="POST">
+                    <input type="number" name="amount" class="form-control">
+                    <input type="hidden" name="name" value="<%= products.name %>">
+                    <input type="hidden" name="price" value="<%= products.price %>">
+                    <input type="hidden" name="productId" value="<%= products._id %>">
+                    <input type="hidden" name="redirectTo" value="/">
+                    <% if (isAdmin) { %>
+                    <input type="submit" value="delete this product" class="btn btn-primary" formaction="/product/delete">
+                    <% } else {%>  
+                    <input type="submit" value="Add to cart" class="btn btn-primary" formaction="/cart">
+                    <% } %>    
+                </form>
+            </div>
+            <div class="col col-12 col-md-6"> 
+                <h3> <%= products.name %></h3>
+                <h5> PRICE : <%= products.price %> $</h5>
+                <p> <%= products.description %> </p>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<%-  include('parts/footer.ejs') %>

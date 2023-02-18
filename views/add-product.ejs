@@ -1,0 +1,40 @@
+<%-  include('parts/header.ejs') %>
+
+<%-  include('parts/navbar.ejs') %>
+
+<div class="container text-center">
+    <h3> Add Product</h3>
+    <form action="/admin/add" method="POST" enctype="multipart/form-data">
+        <input type="text" class="form-control" name="name" placeholder="Name" >
+        <% let nameError = validationErrors.find(err => err.param ==='name') %>
+        <% if(nameError) { %>
+            <p class="alert alert-danger">
+                <%= nameError.msg %>
+            </p>
+        <% } %>
+        <input type="number" class="form-control" name="price" placeholder="price">
+        <% let priceError = validationErrors.find(err => err.param ==='price') %>
+        <% if(priceError) { %>
+            <p class="alert alert-danger">
+                <%= priceError.msg %>
+            </p>
+        <% } %>
+        <textarea  name="description" class="form-control" ></textarea>
+        <select  class="form-control" name="category" aria-placeholder="choose a category" >
+            
+            <option value="television"> TELEVISION</option>
+            <option value="phones">PHONES</option>
+            <option value="computers">COMPUTERS</option>
+        </select>
+        <input type="file" class="form-contol" name="image" >
+        <% let fileError = validationErrors.find(err => err.param ==='image') %>
+        <% if(fileError) { %>
+            <p class="alert alert-danger">
+                <%= fileError.msg %>
+            </p>
+        <% } %>
+        <input type="submit" value="Add product" class="btn btn-primary">
+    </form>
+</div>
+
+<%-  include('parts/footer.ejs') %>
